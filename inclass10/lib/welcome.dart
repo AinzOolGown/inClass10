@@ -8,16 +8,19 @@ class WelcomePage extends StatefulWidget {
 
   const WelcomePage({super.key, required this.name, required this.email});
   
+  @override
   State<WelcomePage> createState() => _WelcomePageState();
 }
 
 class _WelcomePageState extends State<WelcomePage> {
   late ConfettiController _confettiController;
+  @override
   void initState() {
     super.initState();
     _confettiController = ConfettiController(duration: const Duration(seconds: 3));
     _confettiController.play();
   }
+  @override
   void dispose() {
     _confettiController.dispose();
     super.dispose();
