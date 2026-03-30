@@ -20,6 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   final FocusNode _nameFocusNode = FocusNode();
 
   bool _showEmojiPicker = false;
+  bool _isPasswordVisible = true;
 
   void _toggleEmojiPicker() {
     setState(() {
@@ -116,11 +117,23 @@ class _SignupPageState extends State<SignupPage> {
 
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: _isPasswordVisible,
+                      decoration: InputDecoration(
                         labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.lock),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -137,7 +150,7 @@ class _SignupPageState extends State<SignupPage> {
 
                     TextFormField(
                       controller: _confirmPasswordController,
-                      obscureText: true,
+                      obscureText: _isPasswordVisible,
                       decoration: const InputDecoration(
                         labelText: 'Confirm Password',
                         prefixIcon: Icon(Icons.lock),
